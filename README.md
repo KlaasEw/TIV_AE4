@@ -1,6 +1,6 @@
 # 📘 Technische Informationsverarbeitung (TIV_AE4)
 
-![Technische Akademie Nord Logo](./assets/tan-logo.svg)
+![Technische Akademie Nord Logo](https://www.t-a-nord.de/assets/images/c/technische-akademie-nord-d48cdd6d.svg)
 
 
 ## 📌 Über dieses Repository
