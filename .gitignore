@@ -1,0 +1,12 @@
+# Alles ignorieren
+*
+
+# Ordner erlauben
+!*/
+
+# Dateien mit Endung erlauben
+!*.*
+
+# macOS Finder-Dateien immer ignorieren
+.DS_Store
+**/.DS_Store
