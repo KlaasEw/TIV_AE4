@@ -21,6 +21,7 @@ Jede Unterrichtseinheit ist in einem eigenen Ordner abgelegt, z. B.:
 - 📁 20251011_Unterrricht
 - 📁 20251108_Unterricht
 - 📁 20251206_Unterricht
+- 📁 20260117_Unterricht
 - 📄 .gitignore
 - 📄 README.md
 
