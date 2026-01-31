@@ -125,13 +125,13 @@ int main(){
     {
         for ( int i = 1; i < input.length() - position; i++)
         {
-            zahl += (input[i]- '0') * pow(10, input.length()-1-i);
+            zahl += (input[i]- '0') * pow(10, input.length()-position-1-i);
         }
         if (komma)
         {
-            for (int i = position+i; i < input.length(); i++)
+            for (int i = position+1; i < input.length(); i++)
             {
-                zahl += (input[i]- '0') * pow(10, (position- (int(input.length())-i))*-1);
+                zahl += (input[i]- '0') * pow(10, (position-int((input.length())-i))*-1);
             }
             
         }
@@ -139,16 +139,15 @@ int main(){
         zahl = -zahl;
     }else
     {
-        for ( int i = 0; i < input.length(); i++)
+        for ( int i = 1; i < input.length() - position; i++)
         {
-            zahl += (input[i]- '0') * pow(10, input.length()-1-i);
+            zahl += (input[i]- '0') * pow(10, input.length()-position-1-i);
         }
-
         if (komma)
         {
             for (int i = position+1; i < input.length(); i++)
             {
-                zahl += (input[i]- '0') * pow(10, (position- (int(input.length())-i))*-1);
+                zahl += (input[i]- '0') * pow(10, (position-int((input.length())-i))*-1);
             }
             
         }

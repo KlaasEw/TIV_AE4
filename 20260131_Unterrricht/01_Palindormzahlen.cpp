@@ -10,9 +10,9 @@
 
 using namespace std;
 
-bool isPalindrome(int Zahl) {
+bool PalindromePrüfung(int Zahl) {
     int Original = Zahl;
-    long Umgedreht = 0; // 'long', um Überlauf bei Rückwärtszählung zu vermeiden
+    int Umgedreht = 0;
     
     // Zahl umkehren
     while (Zahl > 0) {
@@ -25,9 +25,12 @@ bool isPalindrome(int Zahl) {
 }
 
 int main() {
+    cout << "Gibt eine Zahl zur Prüfung ein: ";
     int Eingabe {};
+    cout << endl;
+
     cin >> Eingabe;
-    if (isPalindrome(Eingabe)) {
+    if (PalindromePrüfung(Eingabe)) {
         cout << Eingabe << " ist ein Palindrom." << endl;
     } else {
         cout << Eingabe << " ist kein Palindrom." << endl;
