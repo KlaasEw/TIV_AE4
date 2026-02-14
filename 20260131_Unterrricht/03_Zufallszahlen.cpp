@@ -14,10 +14,13 @@ using namespace std;
 
 int main()
 {
+    const int minimum {50};
+    const int  maximum {100};
+
     srand(time(0));
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 1000; i++)
     {
-        cout << rand() << endl;
+        cout << rand()% (maximum - minimum + 1) + minimum << endl;
     }
     
     
