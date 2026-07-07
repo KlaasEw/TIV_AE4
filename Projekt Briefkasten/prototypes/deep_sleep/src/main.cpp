@@ -6,13 +6,28 @@
 
 
 #include <Arduino.h>
+#include "driver/rtc_io.h" // Wird benötigt um die Pullup/Pulldown Widerstände zu setzen
 
 void setup() {
   Serial.begin(115200);
+  delay(1000);
+
+  esp_sleep_wakeup_cause_t reason = esp_sleep_get_wakeup_cause();
+
+  if (reason == ESP_SLEEP_WAKEUP_EXT0) {
+    // Aufgewacht durch Taster/Sensor → hier arbeiten
+    Serial.println("Aufgewacht! Mache etwas...");
+    // z.B. Mail senden, Sensor lesen...
+  } else {
+    Serial.println("Erster Start oder anderer Grund");
+  }
+
   Serial.println("Hey, ich gehe jetzt schlafen");
-  esp_sleep_enable_ext0_wakeup(GPIO_NUM_5, HIGH);
+  esp_sleep_enable_ext0_wakeup(GPIO_NUM_4, HIGH);
+  rtc_gpio_pullup_dis(GPIO_NUM_4);
+  rtc_gpio_pulldown_en(GPIO_NUM_4);
   esp_deep_sleep_start();
-  Serial.println("Das wird neimals ausgegeben");
+  Serial.println("Das wird niemals ausgegeben");
 }
 
 void loop() {
