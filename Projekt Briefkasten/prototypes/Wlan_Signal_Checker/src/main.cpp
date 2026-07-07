@@ -19,8 +19,10 @@ void setup() {
 }
 void loop() {
     if (WiFi.status() == WL_CONNECTED) {
+        Serial.print("Verbunden mit AP (BSSID): ");
+        Serial.print(WiFi.BSSIDstr());
         int rssi = WiFi.RSSI();
-        Serial.printf("RSSI: %d dBm", rssi);
+        Serial.printf(" | RSSI: %d dBm", rssi);
         if (rssi >= -60)      Serial.println("  -> Gut");
         else if (rssi >= -75) Serial.println("  -> Ausreichend");
         else                  Serial.println("  -> Schwach!");

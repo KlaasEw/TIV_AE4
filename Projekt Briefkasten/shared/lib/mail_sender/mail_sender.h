@@ -9,6 +9,8 @@
 struct MailConfig {
     const char* wifiSsid;
     const char* wifiPassword;
+    const uint8_t* wifiBssid;  // optional: Repeater-MAC fuer schnellere Verbindung
+    uint8_t     wifiChannel;   // 0 = aus NVS oder Scan ermitteln
     const char* smtpHost;
     uint16_t    smtpPort;
     const char* authorEmail;

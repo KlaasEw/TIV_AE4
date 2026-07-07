@@ -5,9 +5,14 @@
 
 #pragma once
 
-// WLAN
+#include <stdint.h>
+
+// WLAN (Repeater-SSID empfohlen, nicht Router-SSID)
 #define WIFI_SSID "DEIN_WLAN_NAME"
 #define WIFI_PASSWORD "DEIN_WLAN_PASSWORT"
+
+// Repeater-BSSID (MAC-Adresse des Access Points, aus Serial Monitor)
+static const uint8_t WIFI_BSSID[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 // Hetzner SMTP
 #define SMTP_HOST "mail.your-server.de"

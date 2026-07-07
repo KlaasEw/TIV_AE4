@@ -10,13 +10,18 @@
 #include <mail_sender.h>
 #include "secrets.h"
 #define LED_Pin 2
-MailSender mail;
+
 void setup() {
     pinMode(LED_Pin, OUTPUT);
     Serial.begin(115200);
+    delay(500);
+
+    MailSender mail;
     MailConfig cfg = {
         .wifiSsid       = WIFI_SSID,
         .wifiPassword   = WIFI_PASSWORD,
+        .wifiBssid      = WIFI_BSSID,
+        .wifiChannel    = 0,
         .smtpHost       = SMTP_HOST,
         .smtpPort       = SMTP_PORT,
         .authorEmail    = AUTHOR_EMAIL,
@@ -35,6 +40,8 @@ void setup() {
         )) {
             Serial.println("E-Mail gesendet.");
             digitalWrite(LED_Pin, HIGH);
+        } else {
+            Serial.println("E-Mail-Versand fehlgeschlagen.");
         }
     } else {
         Serial.println("Initialisierung fehlgeschlagen.");
