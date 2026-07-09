@@ -6,6 +6,8 @@
 #include <WiFiManager.h>
 #include <Preferences.h>
 
+#define TASTER_PIN 5
+
 char smtp_host[64]       = "";
 char smtp_port[8]        = "465";
 char author_email[64]    = "";
@@ -32,41 +34,48 @@ void saveConfigCallback();
 void setup() {
   Serial.begin(115200);
   delay(1000);
-
-  WiFiManager wm;
-  wm.setTitle("Postbot");
-  wm.setSaveConfigCallback(saveConfigCallback);
-
-  const char* menu[] = {"wifi", "exit"};
-  wm.setMenu(menu, 2);
-  wm.setShowInfoUpdate(false);
-
-  wm.addParameter(&p_smtp_host);
-  wm.addParameter(&p_smtp_port);
-  wm.addParameter(&p_author_email);
-  wm.addParameter(&p_author_pass);
-  wm.addParameter(&p_author_name);
-  wm.addParameter(&p_recipient_email);
-  wm.addParameter(&p_recipient_name);
-
-  // reset settings - wipe stored credentials for testing
-  // these are stored by the esp library
-  //wm.resetSettings();
+  pinMode(TASTER_PIN, INPUT_PULLUP);
 
   loadMailConfig();
 
-  bool res = wm.autoConnect("Postbot-Config");
+  delay(50);
+  if (digitalRead(TASTER_PIN) == LOW) {
+    WiFiManager wm;
+    wm.setTitle("Postbot");
+    wm.setSaveConfigCallback(saveConfigCallback);
 
-  if (shouldSaveConfig) {
-    saveMailConfig();
-    shouldSaveConfig = false;
-  }
+    const char* menu[] = {"wifi", "exit"};
+    wm.setMenu(menu, 2);
+    wm.setShowInfoUpdate(false);
 
-  if(!res) {
-    Serial.println("WLAN - Verbindung fehlgeschlagen");
+    wm.addParameter(&p_smtp_host);
+    wm.addParameter(&p_smtp_port);
+    wm.addParameter(&p_author_email);
+    wm.addParameter(&p_author_pass);
+    wm.addParameter(&p_author_name);
+    wm.addParameter(&p_recipient_email);
+    wm.addParameter(&p_recipient_name);
+
+    wm.setBreakAfterConfig(true);
+    wm.setConfigPortalTimeout(180); // 3 Minuten
+
+    bool res = wm.startConfigPortal("Postbot-Config");
+
+    if (shouldSaveConfig) {
+      saveMailConfig();
+      shouldSaveConfig = false;
+    }
+
+    if (res) {
+      Serial.println("Konfiguration abgeschlossen");
+    } else {
+      Serial.println("Konfiguration abgebrochen");
+    }
+
     ESP.restart();
   }
-  Serial.println("WLAN - Verbindung hergestellt");
+
+  
 }
 
 void loop() {
